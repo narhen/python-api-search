@@ -100,6 +100,7 @@ ENV/
 
 # intellij
 *.iml
+.idea
 
 # project
 apisrc
