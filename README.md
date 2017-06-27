@@ -1,6 +1,6 @@
 # python-api-search
 
-An experimental search API for NDLA
+
 
 ## How to run
 
