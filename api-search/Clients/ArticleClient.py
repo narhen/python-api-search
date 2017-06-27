@@ -8,7 +8,7 @@ class ArticleClient(ApiClientBase):
         params = {
             "query": query,
             "page": page_no,
-            "page_size": page_size
+            "page-size": page_size
         }
         return self.get("/article-api/v1/articles", params=params).json()
 

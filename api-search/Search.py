@@ -61,9 +61,10 @@ class Search:
     def __parse_learningpath_results(self, results, lang):
         return self.__parse_results(results, lang, ["title", "introduction"], ["id"], "learningpaths") 
 
-    def __search(self, query, language):
+    def __search(self, query, language, page_size, page_no):
         def cli_search(c):
-            return c.parser(Dict(c.client.search(query)), language)
+            search_result = Dict(c.client.search(query, page_size=page_size, page_no=page_no))
+            return c.parser(search_result, language)
 
         ex = futures.ThreadPoolExecutor(max_workers=len(self.__clients))
         return list(ex.map(cli_search, self.__clients))
@@ -71,7 +72,11 @@ class Search:
     def on_get(self, req, response):
         query = req.get_param("query") or ""
         language = req.get_param("language") or "nb"
-        self.__logger.info("GET / query={}".format(query))
+        page_size = req.get_param("page-size") or 5
+        page_no = req.get_param("page") or 1
+
+        self.__logger.info("GET / query={}, language={}, page-size={}, page={}".format(query,
+            language, page_size, page_no))
 
         response.status = falcon.HTTP_200
-        response.body = dumps(self.__search(query, language))
+        response.body = dumps(self.__search(query, language, page_size, page_no))
