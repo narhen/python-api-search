@@ -10,5 +10,5 @@ class LearningpathClient(ApiClientBase):
             "page": page_no,
             "page-size": page_size
         }
-        return self.get("/learningpath-api/v1/learningpaths", params=params).json()
+        return self.get("/learningpath-api/v2/learningpaths", params=params).json()
 

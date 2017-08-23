@@ -10,5 +10,5 @@ class ArticleClient(ApiClientBase):
             "page": page_no,
             "page-size": page_size
         }
-        return self.get("/article-api/v1/articles", params=params).json()
+        return self.get("/article-api/v2/articles", params=params).json()
 
